@@ -1382,3 +1382,31 @@ and (-webkit-min-device-pixel-ratio: 2) {
     margin-left: 3px;
     margin-right: 3px;
 }
+
+#search {
+  margin-bottom: 45px;
+}
+
+#search:after {
+  content: "";
+  display: block;
+  clear: both
+}
+
+#search-field {
+  float: left;
+  border-right: none;
+  width: calc(100% - 155px)
+}
+
+#search-submit {
+  float: left;
+  width: 155px;
+  padding: 0;
+  box-sizing: border-box;
+  margin-top: 0;
+  height: 44px;
+  line-height: 44px;
+  border-top-left-radius: 0;
+  border-bottom-left-radius: 0;
+}

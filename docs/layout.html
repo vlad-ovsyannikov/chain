@@ -6,7 +6,6 @@
   <meta name="viewport" content ="width=device-width,initial-scale=1,user-scalable=yes" />
   <title>Chain Documentation</title>
   <link rel="stylesheet" href="/docs/css/style.css">
-  <link rel="stylesheet" href="/docs/css/prettify.css">
   <script src="/docs/js/jquery.min.js"></script>
   <script src="/docs/js/layout.js"></script>
   <script src="/docs/js/init.js"></script>
@@ -98,6 +97,11 @@
   </div>
   <div id="doc-wrapper" tabindex="0">
     <article id="doc-content" class="{{Filename}}">
+      <form id="search">
+        <input id="search-field" type="text" name="q" value="" placeholder="Search documentation">
+        <a href="#" id="search-submit" class="btn success">Search</a>
+      </form>
+
       {{Body}}
 
       <footer>

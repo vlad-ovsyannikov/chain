@@ -6,7 +6,7 @@ To view docs with their associated HTML, styles and fonts, we use a tool called 
 
 Make sure all Chain Core commands have been installed by following the installation instructions in the [repo README](../Readme.md#installation).
 
-Once installed, run `md2html` from the root directory of the rep:
+Once installed, run `md2html` from the root directory of the repo:
 
 ```sh
 $ cd $CHAIN
