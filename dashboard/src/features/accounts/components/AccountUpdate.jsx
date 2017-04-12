@@ -34,14 +34,21 @@ class Form extends React.Component {
       submitting
     } = this.props
 
-    const tagsString = Object.keys(this.props.item.tags).length === 0 ? '{\n\t\n}' : JSON.stringify(this.props.item.tags, null, 1)
+    const item = this.props.item
+
+    const title = <span>
+      {'Edit account tags '}
+      <code>{item.alias ? item.alias :item.id}</code>
+    </span>
+
+    const tagsString = Object.keys(item.tags).length === 0 ? '{\n\t\n}' : JSON.stringify(item.tags, null, 1)
     const tagLines = tagsString.split(/\r\n|\r|\n/).length
     const JsonFieldHeight = tagLines < 20 ? `${tagLines * 17}px` : '340px'
 
     return(
       <FormContainer
         error={error}
-        label='Edit account tags'
+        label={title}
         onSubmit={handleSubmit(this.submitWithErrors)}
         submitting={submitting} >
 
