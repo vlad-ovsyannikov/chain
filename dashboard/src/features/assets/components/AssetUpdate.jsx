@@ -10,7 +10,7 @@ class Form extends React.Component {
 
   submitWithErrors(data) {
     return new Promise((resolve, reject) => {
-      this.props.submitForm(data)
+      this.props.submitForm(data, this.props.item.id)
         .catch((err) => reject({_error: err}))
     })
   }

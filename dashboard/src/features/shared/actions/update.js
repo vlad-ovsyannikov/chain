@@ -20,7 +20,7 @@ export default function(type, options = {}) {
 
           let postCreatePath = listPath
           if (options.redirectToShow) {
-            postCreatePath = `${postCreatePath}/${resp.id}`
+            postCreatePath = `${postCreatePath}/${id}`
           }
 
           dispatch(push({
