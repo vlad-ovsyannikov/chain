@@ -4,7 +4,7 @@ import { baseCreateActions, baseUpdateActions, baseListActions } from 'features/
 const type = 'account'
 
 const list = baseListActions(type, { defaultKey: 'alias' })
-const form = baseCreateActions(type, {
+const create = baseCreateActions(type, {
   jsonFields: ['tags'],
   intFields: ['quorum'],
   redirectToShow: true,
@@ -16,7 +16,7 @@ const update = baseUpdateActions(type, {
 
 let actions = {
   ...list,
-  ...form,
+  ...create,
   ...update,
   createReceiver: (data) => () => {
     return chainClient().accounts.createReceiver(data)

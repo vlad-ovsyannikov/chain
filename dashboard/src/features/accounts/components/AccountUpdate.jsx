@@ -1,5 +1,5 @@
 import React from 'react'
-import { BaseUpdate, FormContainer, FormSection, JsonField } from 'features/shared/components'
+import { BaseUpdate, FormContainer, FormSection, JsonField, NotFound } from 'features/shared/components'
 import { reduxForm } from 'redux-form'
 
 class Form extends React.Component {
@@ -26,27 +26,38 @@ class Form extends React.Component {
     })
   }
 
+  renderIfFound(view) {
+    if (this.state.notFound) {
+      return(<NotFound />)
+    } else if (view) {
+      return(view)
+    } else {
+      return(<div>Loading...</div>)
+    }
+  }
+
   render() {
-    const {
-      fields: { tags },
-      error,
-      handleSubmit,
-      submitting
-    } = this.props
-
     const item = this.props.item
+    let view
 
-    const title = <span>
-      {'Edit account tags '}
-      <code>{item.alias ? item.alias :item.id}</code>
-    </span>
+    if (item) {
+      const {
+        fields: { tags },
+        error,
+        handleSubmit,
+        submitting
+      } = this.props
 
-    const tagsString = Object.keys(item.tags).length === 0 ? '{\n\t\n}' : JSON.stringify(item.tags, null, 1)
-    const tagLines = tagsString.split(/\r\n|\r|\n/).length
-    const JsonFieldHeight = tagLines < 20 ? `${tagLines * 17}px` : '340px'
+      const title = <span>
+        {'Edit account tags '}
+        <code>{item.alias ? item.alias :item.id}</code>
+      </span>
 
-    return(
-      <FormContainer
+      const tagsString = Object.keys(item.tags).length === 0 ? '{\n\t\n}' : JSON.stringify(item.tags, null, 1)
+      const tagLines = tagsString.split(/\r\n|\r|\n/).length
+      const JsonFieldHeight = tagLines < 20 ? `${tagLines * 17}px` : '340px'
+
+      view = <FormContainer
         error={error}
         label={title}
         onSubmit={handleSubmit(this.submitWithErrors)}
@@ -59,7 +70,8 @@ class Form extends React.Component {
             fieldProps={tags} />
         </FormSection>
       </FormContainer>
-    )
+    }
+    return this.renderIfFound(view)
   }
 }
 

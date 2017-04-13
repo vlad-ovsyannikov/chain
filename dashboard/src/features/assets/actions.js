@@ -3,7 +3,7 @@ import { baseCreateActions, baseUpdateActions, baseListActions } from 'features/
 const type = 'asset'
 
 const list = baseListActions(type, { defaultKey: 'alias' })
-const form = baseCreateActions(type, {
+const create = baseCreateActions(type, {
   jsonFields: ['tags', 'definition'],
   intFields: ['quorum'],
   redirectToShow: true,
@@ -15,7 +15,7 @@ const update = baseUpdateActions(type, {
 
 const actions = {
   ...list,
-  ...form,
+  ...create,
   ...update,
 }
 export default actions
