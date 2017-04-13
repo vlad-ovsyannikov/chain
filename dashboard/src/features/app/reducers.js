@@ -78,13 +78,13 @@ export const flashMessages = (state = {}, action) => {
 
     case 'UPDATED_ACCOUNT': {
       return newSuccess(state, <p>
-          Updated account.
+          Updated account tags.
         </p>)
     }
 
     case 'UPDATED_ASSET': {
       return newSuccess(state, <p>
-          Updated account.
+          Updated asset tags.
         </p>)
     }
 

@@ -53,7 +53,10 @@ class Form extends React.Component {
         submitting={submitting} >
 
         <FormSection title='Account Tags'>
-          <JsonField height={JsonFieldHeight} fieldProps={tags} />
+          <JsonField
+            hint='Updating tags will overwrite existing tags. Contents must be represented as a JSON object.'
+            height={JsonFieldHeight}
+            fieldProps={tags} />
         </FormSection>
       </FormContainer>
     )
