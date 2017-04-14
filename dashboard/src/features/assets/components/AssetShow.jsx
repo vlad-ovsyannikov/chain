@@ -25,6 +25,7 @@ class AssetShow extends BaseShow {
         <PageContent>
           <KeyValueTable
             id={item.id}
+            object='asset'
             title='Details'
             actions={[
               <button key='show-circulation' className='btn btn-link' onClick={this.props.showCirculation.bind(this, item)}>

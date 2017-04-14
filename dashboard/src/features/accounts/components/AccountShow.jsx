@@ -48,6 +48,7 @@ class AccountShow extends BaseShow {
         <PageContent>
           <KeyValueTable
             id={item.id}
+            object='account'
             title='Details'
             actions={[
               <button key='show-txs' className='btn btn-link' onClick={this.props.showTransactions.bind(this, item)}>Transactions</button>,

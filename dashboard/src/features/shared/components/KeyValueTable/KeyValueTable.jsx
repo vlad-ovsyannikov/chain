@@ -56,11 +56,11 @@ class KeyValueTable extends React.Component {
                 return <tr key={`${item.label}`}>
                   <td className={styles.label}>{item.label}</td>
                   <td className={styles.value}>{this.renderValue(item)}
-                    <div className={styles.edit}>
-                      <Link to={`${this.props.id}/tags`} key='edit-tags'>
+
+                      <Link to={`/${this.props.object}s/${this.props.id}/tags`} className={styles.edit} key='edit-tags'>
                         <span className={`${styles.pencil} glyphicon glyphicon-pencil`}></span>Edit
                       </Link>
-                    </div>
+
                   </td>
                 </tr>
               } else {

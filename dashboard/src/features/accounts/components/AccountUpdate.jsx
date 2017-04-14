@@ -55,7 +55,15 @@ class Form extends React.Component {
 
       const tagsString = Object.keys(item.tags).length === 0 ? '{\n\t\n}' : JSON.stringify(item.tags, null, 1)
       const tagLines = tagsString.split(/\r\n|\r|\n/).length
-      const JsonFieldHeight = tagLines < 20 ? `${tagLines * 17}px` : '340px'
+      let JsonFieldHeight
+
+      if (tagLines < 5) {
+        JsonFieldHeight = '80px'
+      } else if (tagLines < 20) {
+        JsonFieldHeight = `${tagLines * 17}px`
+      } else {
+        JsonFieldHeight = '340px'
+      }
 
       view = <FormContainer
         error={error}
