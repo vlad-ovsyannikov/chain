@@ -1,5 +1,4 @@
 import React from 'react'
-import { Link } from 'react-router'
 import {
   BaseShow,
   CopyableBlock,
@@ -48,14 +47,12 @@ class AccountShow extends BaseShow {
 
         <PageContent>
           <KeyValueTable
+            id={item.id}
             title='Details'
             actions={[
               <button key='show-txs' className='btn btn-link' onClick={this.props.showTransactions.bind(this, item)}>Transactions</button>,
               <button key='show-balances' className='btn btn-link' onClick={this.props.showBalances.bind(this, item)}>Balances</button>,
-              <RawJsonButton key='raw-json' item={item} />,
-              <Link to={`/accounts/${item.id}/tags`} key='edit-account-tags' className='btn btn-link'>
-                Edit
-              </Link>
+              <RawJsonButton key='raw-json' item={item} />
             ]}
             items={[
               {label: 'ID', value: item.id},
