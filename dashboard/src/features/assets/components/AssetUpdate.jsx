@@ -53,6 +53,13 @@ class Form extends React.Component {
         <code>{item.alias ? item.alias :item.id}</code>
       </span>
 
+      const hint = <div>
+        <p>Updating tags will overwrite existing tags. Contents must be represented as a JSON object.</p>
+        <p>
+          Asset tags are used to annotate transactions where relevant. Changing the tags will only be reflected for future transactions,
+          and will not affect annotations for transactions that already exist.
+        </p>
+      </div>
       const tagsString = Object.keys(item.tags).length === 0 ? '{\n\t\n}' : JSON.stringify(item.tags, null, 1)
       const tagLines = tagsString.split(/\r\n|\r|\n/).length
       let JsonFieldHeight
@@ -73,7 +80,7 @@ class Form extends React.Component {
 
         <FormSection title='Asset Tags'>
           <JsonField
-            hint='Updating tags will overwrite existing tags. Contents must be represented as a JSON object.'
+            hint={hint}
             height={JsonFieldHeight}
             fieldProps={tags} />
         </FormSection>
