@@ -12,9 +12,8 @@ class Form extends React.Component {
   }
 
   submitWithErrors(data) {
-    return new Promise((resolve, reject) => {
-      this.props.submitForm(data, this.props.item.id)
-        .catch((err) => reject({_error: err}))
+    return this.props.submitForm(data, this.props.item.id).catch(err => {
+      throw {_error: err}
     })
   }
 
@@ -26,67 +25,60 @@ class Form extends React.Component {
     })
   }
 
-  renderIfFound(view) {
-    if (this.state.notFound) {
-      return(<NotFound />)
-    } else if (view) {
-      return(view)
-    } else {
-      return(<div>Loading...</div>)
-    }
-  }
-
   render() {
-    const item = this.props.item
-    let view
-
-    if (item) {
-      const {
-        fields: { tags },
-        error,
-        handleSubmit,
-        submitting
-      } = this.props
-
-      const title = <span>
-        {'Edit account tags '}
-        <code>{item.alias ? item.alias :item.id}</code>
-      </span>
-
-      const hint = <div>
-        <p>Updating tags will overwrite existing tags. Contents must be represented as a JSON object.</p>
-        <p>
-          Account tags are used to annotate transactions where relevant. Changing the tags will only be reflected for future transactions,
-          and will not affect annotations for transactions that already exist.
-        </p>
-      </div>
-      const tagsString = Object.keys(item.tags).length === 0 ? '{\n\t\n}' : JSON.stringify(item.tags, null, 1)
-      const tagLines = tagsString.split(/\r\n|\r|\n/).length
-      let JsonFieldHeight
-
-      if (tagLines < 5) {
-        JsonFieldHeight = '80px'
-      } else if (tagLines < 20) {
-        JsonFieldHeight = `${tagLines * 17}px`
-      } else {
-        JsonFieldHeight = '340px'
-      }
-
-      view = <FormContainer
-        error={error}
-        label={title}
-        onSubmit={handleSubmit(this.submitWithErrors)}
-        submitting={submitting} >
-
-        <FormSection title='Account Tags'>
-          <JsonField
-            hint={hint}
-            height={JsonFieldHeight}
-            fieldProps={tags} />
-        </FormSection>
-      </FormContainer>
+    if (this.state.notFound) {
+      return <NotFound />
     }
-    return this.renderIfFound(view)
+    const item = this.props.item
+
+    if (!item) {
+      return <div>Loading...</div>
+    }
+
+    const {
+      fields: { tags },
+      error,
+      handleSubmit,
+      submitting
+    } = this.props
+
+    const title = <span>
+      {'Edit account tags '}
+      <code>{item.alias ? item.alias :item.id}</code>
+    </span>
+
+    const hint = <div>
+      <p>Updating tags will overwrite existing tags. Contents must be represented as a JSON object.</p>
+      <p>
+        Account tags are used to annotate transactions where relevant. Changing the tags will only be reflected for future transactions,
+        and will not affect annotations for transactions that already exist.
+      </p>
+    </div>
+    const tagsString = Object.keys(item.tags).length === 0 ? '{\n\t\n}' : JSON.stringify(item.tags, null, 1)
+    const tagLines = tagsString.split(/\r\n|\r|\n/).length
+    let JsonFieldHeight
+
+    if (tagLines < 5) {
+      JsonFieldHeight = '80px'
+    } else if (tagLines < 20) {
+      JsonFieldHeight = `${tagLines * 17}px`
+    } else {
+      JsonFieldHeight = '340px'
+    }
+
+    return <FormContainer
+      error={error}
+      label={title}
+      onSubmit={handleSubmit(this.submitWithErrors)}
+      submitting={submitting} >
+
+      <FormSection title='Account Tags'>
+        <JsonField
+          hint={hint}
+          height={JsonFieldHeight}
+          fieldProps={tags} />
+      </FormSection>
+    </FormContainer>
   }
 }
 
