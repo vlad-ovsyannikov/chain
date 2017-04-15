@@ -2,7 +2,6 @@ import { chainClient } from 'utility/environment'
 import { push } from 'react-router-redux'
 
 export default function(type, options = {}) {
-  const listPath = options.listPath || `/${type}s`
   const updated = (param) => ({ type: `UPDATED_${type.toUpperCase()}`, param })
 
   return {
@@ -18,13 +17,8 @@ export default function(type, options = {}) {
         }).then((resp) => {
           dispatch(updated(resp))
 
-          let postCreatePath = listPath
-          if (options.redirectToShow) {
-            postCreatePath = `${postCreatePath}/${id}`
-          }
-
           dispatch(push({
-            pathname: postCreatePath,
+            pathname: `/${type}s/${id}`,
             state: {
               preserveFlash: true
             }

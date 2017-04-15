@@ -10,8 +10,7 @@ const create = baseCreateActions(type, {
   redirectToShow: true,
 })
 const update = baseUpdateActions(type, {
-  jsonFields: ['tags'],
-  redirectToShow: true,
+  jsonFields: ['tags']
 })
 
 let actions = {

@@ -47,13 +47,15 @@ class Form extends React.Component {
       <code>{item.alias ? item.alias :item.id}</code>
     </span>
 
-    const hint = <div>
-      <p>Updating tags will overwrite existing tags. Contents must be represented as a JSON object.</p>
+    // TODO: add link to documentation to further educate on tags and updating tags
+    const tagChangeWarning = <div>
+      <p>Updating tags will overwrite existing tags.</p>
       <p>
         Account tags are used to annotate transactions where relevant. Changing the tags will only be reflected for future transactions,
         and will not affect annotations for transactions that already exist.
       </p>
     </div>
+
     const tagsString = Object.keys(item.tags).length === 0 ? '{\n\t\n}' : JSON.stringify(item.tags, null, 1)
     const tagLines = tagsString.split(/\r\n|\r|\n/).length
     let JsonFieldHeight
@@ -74,29 +76,13 @@ class Form extends React.Component {
 
       <FormSection title='Account Tags'>
         <JsonField
-          hint={hint}
           height={JsonFieldHeight}
           fieldProps={tags} />
+        {tagChangeWarning}
       </FormSection>
     </FormContainer>
   }
 }
-
-const validate = values => {
-  const errors = {}
-
-  const jsonFields = ['tags']
-  jsonFields.forEach(key => {
-    const fieldError = JsonField.validator(values[key])
-    if (fieldError) { errors[key] = fieldError }
-  })
-
-  return errors
-}
-
-const fields = [
-  'tags'
-]
 
 const mapStateToProps = (state, ownProps) => ({
   item: state.account.items[ownProps.params.id]
@@ -115,12 +101,24 @@ const initialValues = (state, ownProps) => {
   return {}
 }
 
+const updateForm = reduxForm({
+  form: 'updateAccountForm',
+  fields: ['tags'],
+  validate: values => {
+    const errors = {}
+
+    const jsonFields = ['tags']
+    jsonFields.forEach(key => {
+      const fieldError = JsonField.validator(values[key])
+      if (fieldError) { errors[key] = fieldError }
+    })
+
+    return errors
+  }
+}, initialValues)(Form)
+
 export default BaseUpdate.connect(
   mapStateToProps,
   BaseUpdate.mapDispatchToProps('account'),
-  reduxForm({
-    form: 'updateAccountForm',
-    fields,
-    validate
-  }, initialValues)(Form)
+  updateForm
 )
